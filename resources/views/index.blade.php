@@ -643,6 +643,7 @@
                             <div class="col-sm-6">
                                 <h2>OKE GARDEN <b>Internship Project</b></h2>
                             </div>
+
                             @if (Auth::user()->role == 'Designer' || Auth::user()->role == 'Gardener')
                                 <div class="col-sm-6">
                                     <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
@@ -658,6 +659,11 @@
                         </div>
                     </div>
                     <table class="table table-striped table-hover">
+                        <div class="col-sm-6">
+                            <a href="https://github.com/agthm3/oke-garden-intern">
+                                <h5>Github <b>Link Repository</b></h5>
+                            </a>
+                        </div>
                         <thead>
                             <tr>
                                 <th>
