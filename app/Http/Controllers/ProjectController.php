@@ -72,7 +72,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+    
+        return view('edit', compact('project'));
     }
 
     /**
@@ -84,7 +85,20 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'keterangan' => 'required|max:255',
+            'status' => 'required'
+        ]);
+
+       $project->update([
+            'name' => $request->name,
+            'keterangan' => $request->keterangan,
+            'status' => $request->status
+        ]);
+
+
+        return Redirect::route('index_pages');
     }
 
     /**
@@ -95,6 +109,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return Redirect::route('index_pages');
     }
+    
 }
