@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('keterangan');
-            $table->enum('status', ['konsultasi', 'revisi', 'payment', 'desain'])->default('konsultasi');
+            $table->enum('status', ['Konsultasi', 'Revisi', 'Payment', 'Desain'])->default('Konsultasi');
             $table->timestamps();
         });
     }
