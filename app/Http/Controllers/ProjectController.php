@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ProjectController extends Controller
 {
@@ -14,7 +15,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::all();
+        return view('index', compact('projects'));
     }
 
     /**
@@ -35,7 +37,20 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'keterangan' => 'required|max:255',
+            'status' => 'required'
+        ]);
+
+        Project::create([
+            'name' => $request->name,
+            'keterangan' => $request->keterangan,
+            'status' => $request->status
+        ]);
+
+        $projects = Project::all();
+        return Redirect::route('index_pages', compact('projects'));
     }
 
     /**

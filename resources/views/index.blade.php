@@ -322,13 +322,13 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Manage <b>Employees</b></h2>
+                            <h2>OKE GARDEN <b>Internship Project</b></h2>
                         </div>
                         <div class="col-sm-6">
                             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
-                                    class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+                                    class="material-icons">&#xE147;</i> <span>Add Project</span></a>
                             <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i
-                                    class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+                                    class="material-icons">&#xE15C;</i> <span>Delete All Project</span></a>
                         </div>
                     </div>
                 </div>
@@ -460,28 +460,30 @@
     <div id="addEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+                <form action="{{ route('store_project') }}" method="POST">
+                    @csrf
                     <div class="modal-header">
-                        <h4 class="modal-title">Add Employee</h4>
+                        <h4 class="modal-title">Add Project</h4>
                         <button type="button" class="close" data-dismiss="modal"
                             aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" required>
+                            <label>Nama Project</label>
+                            <input type="text" name="name" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" required>
+                            <label>Keterangan</label>
+                            <input type="text" name="keterangan" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Address</label>
-                            <textarea class="form-control" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control" required>
+                            <label>Status</label>
+                            <select name="status" class="form-control" id="">
+                                <option value="konsultasi">Konsultasi</option>
+                                <option value="revisi">Revisi</option>
+                                <option value="payment">Payment</option>
+                                <option value="desain">Desain</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
