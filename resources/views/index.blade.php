@@ -558,238 +558,223 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a href="#" class="navbar-brand">Brand<b>Name</b></a>
+        <a href="#" class="navbar-brand">Oke<b>Garden</b></a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Collection of nav links, forms, and other content for toggling -->
         <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
-            <div class="navbar-nav ml-auto action-buttons">
-                <div class="nav-item dropdown">
-                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4">Login</a>
-                    <div class="dropdown-menu action-form">
-                        <form action="/examples/actions/confirmation.php" method="post">
-                            <p class="hint-text">Sign in with your social media account</p>
-                            <div class="form-group social-btn clearfix">
-                                <a href="#" class="btn btn-secondary facebook-btn float-left"><i
-                                        class="fa fa-facebook"></i> Facebook</a>
-                                <a href="#" class="btn btn-secondary twitter-btn float-right"><i
-                                        class="fa fa-twitter"></i> Twitter</a>
-                            </div>
-                            <div class="or-seperator"><b>or</b></div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" required="required">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password" required="required">
-                            </div>
-                            <input type="submit" class="btn btn-primary btn-block" value="Login">
-                            <div class="text-center mt-2">
-                                <a href="#">Forgot Your password?</a>
-                            </div>
-                        </form>
+            @if (Auth::user() == null)
+                <div class="navbar-nav ml-auto action-buttons">
+                    <div class="nav-item dropdown">
+                        <a href="{{ route('login') }}" class="nav-link dropdown-toggle mr-4">Login</a>
+                        <div class="dropdown-menu action-form">
+                            <form action="/examples/actions/confirmation.php" method="post">
+                                <p class="hint-text">Sign in with your social media account</p>
+                                <div class="form-group social-btn clearfix">
+                                    <a href="#" class="btn btn-secondary facebook-btn float-left"><i
+                                            class="fa fa-facebook"></i> Facebook</a>
+                                    <a href="#" class="btn btn-secondary twitter-btn float-right"><i
+                                            class="fa fa-twitter"></i> Twitter</a>
+                                </div>
+                                <div class="or-seperator"><b>or</b></div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Username"
+                                        required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password"
+                                        required="required">
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-block" value="Login">
+                                <div class="text-center mt-2">
+                                    <a href="#">Forgot Your password?</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="{{ route('register') }}" class="btn btn-primary dropdown-toggle sign-up-btn">Sign
+                            up</a>
+                        <div class="dropdown-menu action-form">
+                            <form action="/examples/actions/confirmation.php" method="post">
+                                <p class="hint-text">Fill in this form to create your account!</p>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Username"
+                                        required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password"
+                                        required="required">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Confirm Password"
+                                        required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check-label"><input type="checkbox" required="required"> I accept
+                                        the <a href="#">Terms &amp; Conditions</a></label>
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-block" value="Sign up">
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="nav-item dropdown">
-                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle sign-up-btn">Sign
-                        up</a>
-                    <div class="dropdown-menu action-form">
-                        <form action="/examples/actions/confirmation.php" method="post">
-                            <p class="hint-text">Fill in this form to create your account!</p>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Username" required="required">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password" required="required">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Confirm Password"
-                                    required="required">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-check-label"><input type="checkbox" required="required"> I accept
-                                    the <a href="#">Terms &amp; Conditions</a></label>
-                            </div>
-                            <input type="submit" class="btn btn-primary btn-block" value="Sign up">
+            @else
+                <div class="navbar-nav ml-auto action-buttons">
+                    <p>{{ Auth::user()->name }}</p>
+                    <div class="nav-item dropdown">
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button type="submit">Logout</button>
                         </form>
                     </div>
+
                 </div>
-            </div>
+            @endif
         </div>
     </nav>
-    <div class="container-xl">
-        <div class="table-responsive">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h2>OKE GARDEN <b>Internship Project</b></h2>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
-                                    class="material-icons">&#xE147;</i> <span>Add Project</span></a>
+    @auth
+        <div class="container-xl">
+            <div class="table-responsive">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2>OKE GARDEN <b>Internship Project</b></h2>
+                            </div>
+                            @if (Auth::user()->role == 'Designer' || Auth::user()->role == 'Gardener')
+                                <div class="col-sm-6">
+                                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
+                                            class="material-icons">&#xE147;</i> <span>Add Project</span></a>
+                                </div>
+                            @else
+                                <div class="col-sm-6">
 
+
+
+                                </div>
+                            @endif
                         </div>
                     </div>
-                </div>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll">
-                                    <label for="selectAll"></label>
-                                </span>
-                            </th>
-                            <th>Nama Project</th>
-                            <th>Keterangan</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($projects as $project)
+                    <table class="table table-striped table-hover">
+                        <thead>
                             <tr>
-                                <td>
+                                <th>
                                     <span class="custom-checkbox">
-                                        <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                                        <label for="checkbox1"></label>
+                                        <input type="checkbox" id="selectAll">
+                                        <label for="selectAll"></label>
                                     </span>
-                                </td>
-                                <td>{{ $project->name }}</td>
-                                <td>{{ $project->keterangan }}</td>
-                                <td>{{ $project->status }}</td>
-                                <td>
-                                    <a href="{{ route('edit_project', $project) }}" class="edit"><i
-                                            class="material-icons" title="Edit">&#xE254;</i></a>
-                                    <form action="{{ route('delete_project', $project) }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit"><i class="material-icons"
-                                                title="Delete">&#xE872;</i></button>
-                                    </form>
-                                </td>
+                                </th>
+                                <th>Nama Project</th>
+                                <th>Keterangan</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="clearfix">
-                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#">Previous</a></li>
-                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                    </ul>
+                        </thead>
+                        <tbody>
+                            @foreach ($projects as $project)
+                                <tr>
+                                    <td>
+                                        <span class="custom-checkbox">
+                                            <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                            <label for="checkbox1"></label>
+                                        </span>
+                                    </td>
+                                    <td>{{ $project->name }}</td>
+                                    <td>{{ $project->keterangan }}</td>
+                                    <td>{{ $project->status }}</td>
+                                    @if (Auth::user()->role == 'Designer' || Auth::user()->role == 'Gardener')
+                                        <td>
+                                            <a href="{{ route('edit_project', $project) }}" class="edit"><i
+                                                    class="material-icons" title="Edit">&#xE254;</i></a>
+                                            <form action="{{ route('delete_project', $project) }}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"><i class="material-icons"
+                                                        title="Delete">&#xE872;</i></button>
+                                            </form>
+                                        </td>
+                                    @else
+                                        <div class="col-sm-6">
+
+                                            <p>Login Sebagai Designer/Gardener untuk Hapus/Edit data</p>
+
+                                        </div>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Edit Modal HTML -->
-    <div id="addEmployeeModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('store_project') }}" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Project</h4>
-                        <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Nama Project</label>
-                            <input type="text" name="name" class="form-control" required>
+        <!-- Edit Modal HTML -->
+        <div id="addEmployeeModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('store_project') }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Project</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
                         </div>
-                        <div class="form-group">
-                            <label>Keterangan</label>
-                            <input type="text" name="keterangan" class="form-control" required>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Nama Project</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <input type="text" name="keterangan" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="status" class="form-control" id="">
+                                    <option value="konsultasi">Konsultasi</option>
+                                    <option value="revisi">Revisi</option>
+                                    <option value="payment">Payment</option>
+                                    <option value="desain">Desain</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Status</label>
-                            <select name="status" class="form-control" id="">
-                                <option value="konsultasi">Konsultasi</option>
-                                <option value="revisi">Revisi</option>
-                                <option value="payment">Payment</option>
-                                <option value="desain">Desain</option>
-                            </select>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input type="submit" class="btn btn-success" value="Add">
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-success" value="Add">
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Edit Modal HTML -->
-    {{-- <div id="editEmployeeModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('update_pages', $project) }}" method="post">
-                    @csrf
-                    @method('patch')
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Project</h4>
-                        <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Nama Project</label>
-                            <input type="text" name="name" placeholder="{{ $project->name }}"
-                                value="{{ $project->name }}" class="form-control" required>
+        <!-- Delete Modal HTML -->
+        <div id="deleteEmployeeModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Delete Employee</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">&times;</button>
                         </div>
-                        <div class="form-group">
-                            <label>Keterangan</label>
-                            <input type="text" name="keterangan" placeholder="{{ $project->keterangan }}"
-                                value="{{ $project->keterangan }}" class="form-control" required>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete these Records?</p>
+                            <p class="text-warning"><small>This action cannot be undone.</small></p>
                         </div>
-                        <div class="form-group">
-                            <label>Status</label>
-                            <select name="status" class="form-control" value="{{ $project->status }}"
-                                id="">
-                                <option value="konsultasi">Konsultasi</option>
-                                <option value="revisi">Revisi</option>
-                                <option value="payment">Payment</option>
-                                <option value="desain">Desain</option>
-                            </select>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input type="submit" class="btn btn-danger" value="Delete">
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-info" value="Save">
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div> --}}
-    <!-- Delete Modal HTML -->
-    <div id="deleteEmployeeModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form>
-                    <div class="modal-header">
-                        <h4 class="modal-title">Delete Employee</h4>
-                        <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete these Records?</p>
-                        <p class="text-warning"><small>This action cannot be undone.</small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-danger" value="Delete">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @endauth
+
+    @if (Auth::user() == null)
+        <p>Login untuk mengakses CRUD </p>
+    @endif
 </body>
 
 </html>
